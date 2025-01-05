@@ -10,7 +10,7 @@ public class Main {
            String input = scanner.nextLine();
            String command = input.split(" ")[0];
 
-           if (input.equals(Commands.EXIT.getCommand())) {
+           if (input.equals(Commands.EXIT.getCommand()) || input.equals(Commands.EXIT_ZERO.getCommand())) {
                 break;
            } else if (command.equals(Commands.ECHO.getCommand())) {
                echo(input);

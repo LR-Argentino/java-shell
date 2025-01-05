@@ -1,5 +1,6 @@
 public enum Commands {
-    EXIT("exit 0", "Beendet die Shell"),
+    EXIT("exit", "Beendet die Shell"),
+    EXIT_ZERO("exit 0", "Beendet die Shell mit dem Statu 0"),
     TYPE("type", "Ueberprueft ob der Wert ein builtin Befehl ist"),
     ECHO("echo", "Gibt eine Nachricht aus");
 
