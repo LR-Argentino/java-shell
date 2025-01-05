@@ -35,7 +35,7 @@ public class Main {
         if (command != null) {
             System.out.println(command.getCommand() + " is a shell builtin");
         } else {
-            System.out.print(remainingWords + ": command not found\n");
+            System.out.print(remainingWords + ": not found\n");
         }
     }
 
