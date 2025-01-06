@@ -34,7 +34,7 @@ public class TypeCommand implements CommandService {
             }
         }
         if (!commandExists) {
-            System.out.print(commandName + ": command not found\n");
+            System.out.print(commandName + ": not found\n");
         }
     }
 }
