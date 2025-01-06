@@ -28,7 +28,7 @@ public class TypeCommand implements CommandService {
         for (String directory : directories) {
             File file = new File(directory, commandName);
             if (file.canExecute()) {
-                System.out.println(commandName + " is " + directory);
+                System.out.println(commandName + " is " + directory + "/" + commandName);
                 commandExists = true;
                 break;
             }
