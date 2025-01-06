@@ -22,7 +22,7 @@ public class Shell {
             CommandService cmd = commandManagerService.getCommand(command);
 
             if (cmd == null) {
-                System.out.print(cmd + ": command not found\n");
+                System.out.print(command + ": command not found\n");
             } else {
                 cmd.execute(arguments);
             }
