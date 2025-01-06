@@ -1,33 +1,23 @@
-import commands.CommandService;
-import commandmanager.CommandManagerService;
+import commandmanager.execution.CommandExecutorService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Shell {
-    private final CommandManagerService commandManagerService;
+public class Shell implements ShellService {
+    private final CommandExecutorService cmdExecuter;
 
-    public Shell(CommandManagerService commandManagerService) {
-        this.commandManagerService = commandManagerService;
+    public Shell(CommandExecutorService cmdExecuter) {
+        this.cmdExecuter = cmdExecuter;
     }
 
-    public void run() {
+    @Override
+    public void run() throws IOException {
         System.out.print("$ ");
         Scanner scanner = new Scanner(System.in);
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            String[] parts = input.split(" ");
-            String command = parts[0];
-            String arguments = input.substring(input.indexOf(" ") + 1);
-            CommandService cmd = commandManagerService.getCommand(command);
-
-            if (cmd == null) {
-                System.out.print(command + ": command not found\n");
-            } else {
-                cmd.execute(arguments);
-            }
-
-            System.out.print("$ ");
+            this.cmdExecuter.execute(input);
         }
     }
 }

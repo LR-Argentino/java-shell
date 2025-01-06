@@ -1,4 +1,6 @@
-package commands;
+package commands.builtin;
+
+import commands.CommandService;
 
 public class EchoCommand implements CommandService {
     @Override
