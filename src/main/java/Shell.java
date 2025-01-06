@@ -1,13 +1,13 @@
-import commands.Command;
-import commands.CommandRegistry;
+import commands.CommandService;
+import commandmanager.CommandManagerService;
 
 import java.util.Scanner;
 
 public class Shell {
-    private final CommandRegistry commandRegistry;
+    private final CommandManagerService commandManagerService;
 
-    public Shell(CommandRegistry commandRegistry) {
-        this.commandRegistry = commandRegistry;
+    public Shell(CommandManagerService commandManagerService) {
+        this.commandManagerService = commandManagerService;
     }
 
     public void run() {
@@ -19,17 +19,11 @@ public class Shell {
             String[] parts = input.split(" ");
             String command = parts[0];
             String arguments = input.substring(input.indexOf(" ") + 1);
-            Command cmd = commandRegistry.getCommand(command);
+            CommandService cmd = commandManagerService.getCommand(command);
 
             if (cmd == null) {
                 System.out.print(cmd + ": command not found\n");
-            } else if (command.equals("type")) {
-                if (commandRegistry.getCommand(arguments) != null) {
-                    cmd.execute(arguments);
-                } else {
-                    System.out.print(arguments + ": command not found\n");
-                }
-            }else {
+            } else {
                 cmd.execute(arguments);
             }
 
