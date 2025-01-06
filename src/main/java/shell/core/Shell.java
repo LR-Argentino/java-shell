@@ -1,12 +1,14 @@
-import commandmanager.execution.CommandExecutorService;
+package shell.core;
+
+import shell.commandmanager.execution.ExecutorService;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Shell implements ShellService {
-    private final CommandExecutorService cmdExecuter;
+    private final ExecutorService cmdExecuter;
 
-    public Shell(CommandExecutorService cmdExecuter) {
+    public Shell(ExecutorService cmdExecuter) {
         this.cmdExecuter = cmdExecuter;
     }
 

@@ -1,7 +1,8 @@
-package commandmanager.execution;
+package shell.commandmanager.execution;
 
-import commandmanager.CommandManagerService;
-import commands.CommandService;
+import shell.commandmanager.services.CommandManagerService;
+import shell.commandmanager.services.ExternalCommandManagerService;
+import shell.commands.CommandService;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,23 +11,24 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommandExecutor implements CommandExecutorService{
+public class Executor implements ExecutorService {
     private final CommandManagerService commandManagerService;
+    private final ExternalCommandManagerService externalCommandManagerService;
 
-    public CommandExecutor(CommandManagerService commandManagerService) {
+    public Executor(CommandManagerService commandManagerService, ExternalCommandManagerService externalCommandManagerService) {
         this.commandManagerService = commandManagerService;
+        this.externalCommandManagerService = externalCommandManagerService;
     }
 
     @Override
     public void execute(String input) throws IOException {
-        String[] parts = input.split(" ");
+        String[] parts = input.trim().split(" ");
         String command = parts[0];
-        String arguments = input.substring(input.indexOf(" ") + 1);
+        String arguments = parts.length > 1 ? input.substring(input.indexOf(" ") + 1) : "";
         CommandService cmd = commandManagerService.getCommand(command);
 
         if (cmd == null) {
             executeShellScript(command, arguments);
-//           System.out.print(command + ": command not found\n");
         } else {
             cmd.execute(arguments);
         }
@@ -36,7 +38,7 @@ public class CommandExecutor implements CommandExecutorService{
 
     private void executeShellScript(String scriptName, String args) throws IOException {
         try {
-            File shellScript = this.commandManagerService.getCommandFromPath(scriptName);
+            File shellScript = this.externalCommandManagerService.getShellScript(scriptName);
 
             if (shellScript == null) {
                 System.out.print(scriptName + ": command not found\n");
